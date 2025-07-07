@@ -235,5 +235,3 @@ Thanks to the Qubic team for providing the QPI platform and the inspiration to b
 ---
 
 This project was built as part of \[**Lablab.ai Hackathon**] to help secure and democratize Qubic Smart Contract development.
-
-```
