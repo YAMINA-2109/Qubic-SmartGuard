@@ -141,7 +141,25 @@ char* g_call_function_args = nullptr;
 uint64_t g_call_gas_limit = 0;
 uint64_t g_call_gas_price = 0;
 
-// Network configuration variables  
+// Real execution command parameters
+char* g_real_bytecode_file = nullptr;
+char* g_real_private_key = nullptr;
+char* g_real_network = nullptr;
+char* g_real_contract_address = nullptr;
+char* g_real_function_name = nullptr;
+char* g_real_function_args = nullptr;
+char* g_real_proposal_title = nullptr;
+char* g_real_proposal_description = nullptr;
+unsigned long long g_real_proposal_duration = 0;
+char* g_real_proposal_id = nullptr;
+char* g_real_user_id = nullptr;
+int g_real_vote_choice = 0;
+char* g_real_vote_comment = nullptr;
+char* g_real_target_address = nullptr;
+unsigned long long g_real_transfer_amount = 0;
+char* g_real_check_address = nullptr;
+
+// Additional variables for faucet and wallet commands
+char* g_faucetAddress = nullptr;
 char* g_networkType = nullptr;
 char* g_walletName = nullptr;
-char* g_faucetAddress = nullptr;

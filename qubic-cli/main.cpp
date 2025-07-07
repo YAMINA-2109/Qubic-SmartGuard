@@ -19,6 +19,7 @@
 #include "testUtils.h"
 #include "contractUtils.h"
 #include "testnetUtils.h"
+#include "realExecution.h"
 
 int run(int argc, char* argv[])
 {
@@ -433,6 +434,88 @@ int run(int argc, char* argv[])
         }
         case WALLET_BALANCE: {
             checkWalletBalance(g_walletName, g_networkType);
+            break;
+        }
+        // Real Qubic Dev Kit Execution Commands
+        case REAL_CONTRACT_DEPLOY: {
+            std::string contractAddress;
+            if (executeRealContractDeployment(g_real_bytecode_file, g_real_private_key, g_real_network, contractAddress)) {
+                LOG("Real contract deployment successful!\n");
+                LOG("Contract Address: %s\n", contractAddress.c_str());
+            } else {
+                LOG("Real contract deployment failed!\n");
+            }
+            break;
+        }
+        case REAL_CONTRACT_CALL: {
+            std::string result;
+            if (executeRealContractCall(g_real_contract_address, g_real_function_name, g_real_function_args, 
+                                      g_real_private_key, g_real_network, result)) {
+                LOG("Real contract call successful!\n");
+                LOG("Result: %s\n", result.c_str());
+            } else {
+                LOG("Real contract call failed!\n");
+            }
+            break;
+        }
+        case REAL_VOTING_CREATE: {
+            RealQubicExecutor executor(g_real_network, "127.0.0.1", 21841);
+            std::string proposalId;
+            if (executor.createVotingProposal(g_real_contract_address, g_real_proposal_title, g_real_proposal_description,
+                                            g_real_proposal_duration, g_real_private_key, proposalId)) {
+                LOG("Real voting proposal creation successful!\n");
+                LOG("Proposal ID: %s\n", proposalId.c_str());
+            } else {
+                LOG("Real voting proposal creation failed!\n");
+            }
+            break;
+        }
+        case REAL_VOTING_CAST: {
+            RealQubicExecutor executor(g_real_network, "127.0.0.1", 21841);
+            std::string result;
+            if (executor.castVote(g_real_contract_address, g_real_proposal_id, g_real_user_id,
+                                g_real_vote_choice, g_real_vote_comment, g_real_private_key, result)) {
+                LOG("Real vote casting successful!\n");
+                LOG("Result: %s\n", result.c_str());
+            } else {
+                LOG("Real vote casting failed!\n");
+            }
+            break;
+        }
+        case REAL_VOTING_RESULTS: {
+            RealQubicExecutor executor(g_real_network, "127.0.0.1", 21841);
+            std::string results;
+            if (executor.getVotingResults(g_real_contract_address, g_real_proposal_id, results)) {
+                LOG("Real voting results retrieval successful!\n");
+                LOG("Results: %s\n", results.c_str());
+            } else {
+                LOG("Real voting results retrieval failed!\n");
+            }
+            break;
+        }
+        case REAL_BALANCE: {
+            RealQubicExecutor executor(g_real_network, "127.0.0.1", 21841);
+            unsigned long long balance;
+            if (executor.getBalance(g_real_check_address, balance)) {
+                LOG("Real balance query successful!\n");
+                LOG("Address: %s\n", g_real_check_address);
+                LOG("Balance: %llu QU\n", balance);
+            } else {
+                LOG("Real balance query failed!\n");
+            }
+            break;
+        }
+        case REAL_TRANSFER: {
+            RealQubicExecutor executor(g_real_network, "127.0.0.1", 21841);
+            std::string txId;
+            if (executor.transferQubic(g_real_private_key, g_real_target_address, g_real_transfer_amount, txId)) {
+                LOG("Real Qubic transfer successful!\n");
+                LOG("Transaction ID: %s\n", txId.c_str());
+                LOG("Amount: %llu QU\n", g_real_transfer_amount);
+                LOG("To: %s\n", g_real_target_address);
+            } else {
+                LOG("Real Qubic transfer failed!\n");
+            }
             break;
         }
         case GQMPROP_SET_PROPOSAL:

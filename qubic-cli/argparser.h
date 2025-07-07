@@ -86,6 +86,22 @@ void print_help()
     printf("\t-contractcall --contract <ADDRESS> --function <FUNCTION> --wallet <NAME> --network <NETWORK> [--args <ARGS>] [--params <PARAMS>]\n");
     printf("\t\tCall a function on a deployed smart contract. Use --args or --params for function arguments (comma-separated if multiple).\n");
 
+    printf("\n[REAL QUBIC DEV KIT EXECUTION]\n");
+    printf("\t-realcontractdeploy --bytecode <FILE> --privatekey <KEY> --network <NETWORK>\n");
+    printf("\t\tREAL deployment of smart contract to Qubic network with actual transaction execution.\n");
+    printf("\t-realcontractcall --contract <ADDRESS> --function <FUNCTION> --privatekey <KEY> --network <NETWORK> [--args <ARGS>]\n");
+    printf("\t\tREAL execution of smart contract function calls on Qubic network with actual state changes.\n");
+    printf("\t-realvotingcreate --contract <ADDRESS> --title <TITLE> --description <DESC> --duration <SECONDS> --privatekey <KEY> --network <NETWORK>\n");
+    printf("\t\tREAL creation of voting proposal with actual blockchain transaction.\n");
+    printf("\t-realvotingcast --contract <ADDRESS> --proposal <ID> --userid <USER> --choice <1-3> --privatekey <KEY> --network <NETWORK> [--comment <TEXT>]\n");
+    printf("\t\tREAL voting transaction (1=YES, 2=NO, 3=ABSTAIN) with actual vote recording on blockchain.\n");
+    printf("\t-realvotingresults --contract <ADDRESS> --proposal <ID> --network <NETWORK>\n");
+    printf("\t\tREAL retrieval of voting results from deployed contract on Qubic network.\n");
+    printf("\t-realbalance --address <ADDRESS> --network <NETWORK>\n");
+    printf("\t\tREAL balance query from Qubic network nodes.\n");
+    printf("\t-realtransfer --to <ADDRESS> --amount <AMOUNT> --privatekey <KEY> --network <NETWORK>\n");
+    printf("\t\tREAL Qubic transfer transaction with actual network execution.\n");
+
     printf("\n[BLOCKCHAIN/PROTOCOL COMMANDS]\n");
     printf("\t-gettickdata <TICK_NUMBER> <OUTPUT_FILE_NAME>\n");
     printf("\t\tGet tick data and write it to a file. Use -readtickdata to examine the file. valid node ip/port are required.\n");
@@ -1341,6 +1357,284 @@ void parseArgument(int argc, char** argv)
             }
             
             i++;
+            CHECK_OVER_PARAMETERS
+            break;
+        }
+        
+        // Real Qubic Dev Kit Execution Commands
+        if (strcmp(argv[i], "-realcontractdeploy") == 0) {
+            g_cmd = REAL_CONTRACT_DEPLOY;
+            
+            // Parse required --bytecode parameter
+            if (i + 1 < argc && strcmp(argv[i + 1], "--bytecode") == 0) {
+                g_real_bytecode_file = argv[i + 2];
+            } else {
+                LOG("Error: --bytecode parameter required for real contract deployment\n");
+                exit(1);
+            }
+            
+            // Parse required --privatekey parameter
+            if (i + 3 < argc && strcmp(argv[i + 3], "--privatekey") == 0) {
+                g_real_private_key = argv[i + 4];
+            } else {
+                LOG("Error: --privatekey parameter required for real contract deployment\n");
+                exit(1);
+            }
+            
+            // Parse required --network parameter
+            if (i + 5 < argc && strcmp(argv[i + 5], "--network") == 0) {
+                g_real_network = argv[i + 6];
+            } else {
+                LOG("Error: --network parameter required for real contract deployment\n");
+                exit(1);
+            }
+            
+            i += 7;
+            CHECK_OVER_PARAMETERS
+            break;
+        }
+        
+        if (strcmp(argv[i], "-realcontractcall") == 0) {
+            g_cmd = REAL_CONTRACT_CALL;
+            
+            // Parse required --contract parameter
+            if (i + 1 < argc && strcmp(argv[i + 1], "--contract") == 0) {
+                g_real_contract_address = argv[i + 2];
+            } else {
+                LOG("Error: --contract parameter required for real contract call\n");
+                exit(1);
+            }
+            
+            // Parse required --function parameter
+            if (i + 3 < argc && strcmp(argv[i + 3], "--function") == 0) {
+                g_real_function_name = argv[i + 4];
+            } else {
+                LOG("Error: --function parameter required for real contract call\n");
+                exit(1);
+            }
+            
+            // Parse required --privatekey parameter
+            if (i + 5 < argc && strcmp(argv[i + 5], "--privatekey") == 0) {
+                g_real_private_key = argv[i + 6];
+            } else {
+                LOG("Error: --privatekey parameter required for real contract call\n");
+                exit(1);
+            }
+            
+            // Parse required --network parameter
+            if (i + 7 < argc && strcmp(argv[i + 7], "--network") == 0) {
+                g_real_network = argv[i + 8];
+            } else {
+                LOG("Error: --network parameter required for real contract call\n");
+                exit(1);
+            }
+            
+            // Parse optional --args parameter
+            if (i + 9 < argc && strcmp(argv[i + 8], "--args") == 0) {
+                g_real_function_args = argv[i + 9];
+                i += 10;
+            } else {
+                g_real_function_args = (char*)""; // Empty args if not provided
+                i += 9;
+            }
+            
+            CHECK_OVER_PARAMETERS
+            break;
+        }
+        
+        if (strcmp(argv[i], "-realvotingcreate") == 0) {
+            g_cmd = REAL_VOTING_CREATE;
+            
+            // Parse required parameters
+            if (i + 1 < argc && strcmp(argv[i + 1], "--contract") == 0) {
+                g_real_contract_address = argv[i + 2];
+            } else {
+                LOG("Error: --contract parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 3 < argc && strcmp(argv[i + 3], "--title") == 0) {
+                g_real_proposal_title = argv[i + 4];
+            } else {
+                LOG("Error: --title parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 5 < argc && strcmp(argv[i + 5], "--description") == 0) {
+                g_real_proposal_description = argv[i + 6];
+            } else {
+                LOG("Error: --description parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 7 < argc && strcmp(argv[i + 7], "--duration") == 0) {
+                g_real_proposal_duration = strtoull(argv[i + 8], nullptr, 10);
+            } else {
+                LOG("Error: --duration parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 9 < argc && strcmp(argv[i + 9], "--privatekey") == 0) {
+                g_real_private_key = argv[i + 10];
+            } else {
+                LOG("Error: --privatekey parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 11 < argc && strcmp(argv[i + 11], "--network") == 0) {
+                g_real_network = argv[i + 12];
+            } else {
+                LOG("Error: --network parameter required\n");
+                exit(1);
+            }
+            
+            i += 13;
+            CHECK_OVER_PARAMETERS
+            break;
+        }
+        
+        if (strcmp(argv[i], "-realvotingcast") == 0) {
+            g_cmd = REAL_VOTING_CAST;
+            
+            // Parse required parameters for voting
+            if (i + 1 < argc && strcmp(argv[i + 1], "--contract") == 0) {
+                g_real_contract_address = argv[i + 2];
+            } else {
+                LOG("Error: --contract parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 3 < argc && strcmp(argv[i + 3], "--proposal") == 0) {
+                g_real_proposal_id = argv[i + 4];
+            } else {
+                LOG("Error: --proposal parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 5 < argc && strcmp(argv[i + 5], "--userid") == 0) {
+                g_real_user_id = argv[i + 6];
+            } else {
+                LOG("Error: --userid parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 7 < argc && strcmp(argv[i + 7], "--choice") == 0) {
+                g_real_vote_choice = atoi(argv[i + 8]);
+            } else {
+                LOG("Error: --choice parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 9 < argc && strcmp(argv[i + 9], "--privatekey") == 0) {
+                g_real_private_key = argv[i + 10];
+            } else {
+                LOG("Error: --privatekey parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 11 < argc && strcmp(argv[i + 11], "--network") == 0) {
+                g_real_network = argv[i + 12];
+            } else {
+                LOG("Error: --network parameter required\n");
+                exit(1);
+            }
+            
+            // Parse optional --comment parameter
+            if (i + 13 < argc && strcmp(argv[i + 12], "--comment") == 0) {
+                g_real_vote_comment = argv[i + 13];
+                i += 14;
+            } else {
+                g_real_vote_comment = (char*)""; // Empty comment if not provided
+                i += 13;
+            }
+            
+            CHECK_OVER_PARAMETERS
+            break;
+        }
+        
+        if (strcmp(argv[i], "-realvotingresults") == 0) {
+            g_cmd = REAL_VOTING_RESULTS;
+            
+            if (i + 1 < argc && strcmp(argv[i + 1], "--contract") == 0) {
+                g_real_contract_address = argv[i + 2];
+            } else {
+                LOG("Error: --contract parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 3 < argc && strcmp(argv[i + 3], "--proposal") == 0) {
+                g_real_proposal_id = argv[i + 4];
+            } else {
+                LOG("Error: --proposal parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 5 < argc && strcmp(argv[i + 5], "--network") == 0) {
+                g_real_network = argv[i + 6];
+            } else {
+                LOG("Error: --network parameter required\n");
+                exit(1);
+            }
+            
+            i += 7;
+            CHECK_OVER_PARAMETERS
+            break;
+        }
+        
+        if (strcmp(argv[i], "-realbalance") == 0) {
+            g_cmd = REAL_BALANCE;
+            
+            if (i + 1 < argc && strcmp(argv[i + 1], "--address") == 0) {
+                g_real_check_address = argv[i + 2];
+            } else {
+                LOG("Error: --address parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 3 < argc && strcmp(argv[i + 3], "--network") == 0) {
+                g_real_network = argv[i + 4];
+            } else {
+                LOG("Error: --network parameter required\n");
+                exit(1);
+            }
+            
+            i += 5;
+            CHECK_OVER_PARAMETERS
+            break;
+        }
+        
+        if (strcmp(argv[i], "-realtransfer") == 0) {
+            g_cmd = REAL_TRANSFER;
+            
+            if (i + 1 < argc && strcmp(argv[i + 1], "--to") == 0) {
+                g_real_target_address = argv[i + 2];
+            } else {
+                LOG("Error: --to parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 3 < argc && strcmp(argv[i + 3], "--amount") == 0) {
+                g_real_transfer_amount = strtoull(argv[i + 4], nullptr, 10);
+            } else {
+                LOG("Error: --amount parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 5 < argc && strcmp(argv[i + 5], "--privatekey") == 0) {
+                g_real_private_key = argv[i + 6];
+            } else {
+                LOG("Error: --privatekey parameter required\n");
+                exit(1);
+            }
+            
+            if (i + 7 < argc && strcmp(argv[i + 7], "--network") == 0) {
+                g_real_network = argv[i + 8];
+            } else {
+                LOG("Error: --network parameter required\n");
+                exit(1);
+            }
+            
+            i += 9;
             CHECK_OVER_PARAMETERS
             break;
         }
