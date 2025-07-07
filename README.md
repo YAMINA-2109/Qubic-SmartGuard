@@ -1,4 +1,3 @@
-````markdown
 # 🧠 Qubic SmartGuard
 
 Qubic SmartGuard is an AI-powered assistant for auditing and documenting Qubic Smart Contracts written in C++.  
