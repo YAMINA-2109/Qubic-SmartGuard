@@ -21,7 +21,7 @@ It performs static analysis, semantic validation, commenting, security auditing,
 
 ## 🎯 Project Goal
 
-> **Qubic SmartGuard** aims to **democratize** smart contract auditing on the Qubic platform by providing an **accessible**, **AI-assisted**, and **complete** audit pipeline that turns raw C++ code into a fully documented and validated smart contract report.  
+**Qubic SmartGuard** aims to **democratize** smart contract auditing on the Qubic platform by providing an **accessible**, **AI-assisted**, and **complete** audit pipeline that turns raw C++ code into a fully documented and validated smart contract report.  
 
 This tool is designed to help both **developers** and **auditors** save time while improving security and transparency.
 
@@ -30,29 +30,30 @@ This tool is designed to help both **developers** and **auditors** save time whi
 ## 📸 Screenshots
 
 ### 1️⃣ Upload and Language Selection
-![Upload](images/1_upload.PNG)
+![Upload](files/1_upload.PNG)
+![Upload](files/2_upload.PNG)
 
 ### 2️⃣ Automatic Commenting
-![Commented Example](images/3-example_commente.PNG)
+![Commented Example](files/3-example_commente.PNG)
 
 ### 3️⃣ Semantic Analysis and Validation
-![Analysis](images/4-analyse_validation.PNG)
+![Analysis](files/4-analyse_validation.PNG)
 
 ### 4️⃣ Security Audit Report
-![Security Report](images/5-security_report.PNG)
+![Security Report](files/5-security_report.PNG)
 
 ### 5️⃣ Detailed Documentation
-![Documentation 1](images/6-details_docs.PNG)
-![Documentation 2](images/7-details_docs.PNG)
+![Documentation 1](files/6-details_docs.PNG)
+![Documentation 2](files/7-details_docs.PNG)
 
 ### 6️⃣ Test Plan
-![Test Plan](images/9-test_plan.PNG)
+![Test Plan](files/9-test_plan.PNG)
 
 ### 7️⃣ Simulation
-![Simulation](images/10-simulation.PNG)
+![Simulation](files/10-simulation.PNG)
 
 ### 8️⃣ Qubic Dev Kit Execution (Static Demo)
-![Qubic Dev](images/11-qubic_dev.PNG)
+![Qubic Dev](files/11-qubic_dev.PNG)
 
 ---
 
