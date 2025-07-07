@@ -31,7 +31,6 @@ This tool is designed to help both **developers** and **auditors** save time whi
 
 ### 1️⃣ Upload and Language Selection
 ![Upload](files/1_upload.PNG)
-![Upload](files/2_upload.PNG)
 
 ### 2️⃣ Automatic Commenting
 ![Commented Example](files/3-example_commente.PNG)
@@ -219,7 +218,7 @@ Please open an issue or PR for:
 
 ## 📜 License
 
-[MIT](LICENSE)
+  MIT
 
 ---
 
@@ -231,11 +230,10 @@ Thanks to the Qubic team for providing the QPI platform and the inspiration to b
 
 ## ⭐ Authors
 
-* YAMINA ATMAOUI – AI Engineer, Web Developer
 * Hackathon Team – \[SmartGuard _ Qubic Track]
 
 ---
 
-> This project was built as part of \[**Lablab.ai Hackathon**] to help secure and democratize Qubic Smart Contract development.
+This project was built as part of \[**Lablab.ai Hackathon**] to help secure and democratize Qubic Smart Contract development.
 
 ```
