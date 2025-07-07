@@ -1,4 +1,4 @@
-# 🗳️ Qubic contact test - Enterprise Smart Contract Solution
+# 🗳️ Qubic contract test - Enterprise Smart Contract Solution
 
 A production-ready decentralized voting application built on the Qubic blockchain platform with complete CLI integration and professional-grade features. This DApp enables secure, transparent, and immutable voting processes using advanced smart contracts with enterprise-level security and scalability.
 
