@@ -1,0 +1,31 @@
+# Core LLM + LangChain + Ollama
+langchain
+langchain-community
+langgraph
+langchain_groq
+langchain_openai
+langgraph-cli[inmem]
+
+# Embeddings
+faiss-cpu
+sentence-transformers
+
+# Ollama
+ollama
+
+# Web app
+streamlit
+streamlit_extras
+
+# Utils / parsing
+python-dotenv
+pandas
+python-docx
+fpdf
+pillow
+matplotlib
+PyPDF2
+bs4
+selenium
+openpyxl 
+langchain_huggingface
