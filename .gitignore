@@ -1,0 +1,66 @@
+# Build directories
+**/build/
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+**/x64/
+
+# Compiled executables
+*.exe
+*.dll
+*.so
+*.dylib
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+*.vcxproj.user
+*.sln.docstates
+
+# Visual Studio files
+.vs/
+*.vcxproj.filters
+*.vcxproj.user
+*.sln.docstates
+
+# Bytecode files (optional - you might want to keep some for demo)
+*.bytecode
+
+# Log files
+*.log
+
+# Environment files with sensitive data
+*.env
+wallet-credentials.txt
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+*.swp
+*.swo
+
+# Node modules (if any)
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
