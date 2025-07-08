@@ -4,7 +4,6 @@ Qubic SmartGuard is an AI-powered assistant for auditing and documenting Qubic S
 It performs static analysis, semantic validation, commenting, security auditing, functional specification generation, test planning, simulation, and final reporting all in an easy-to-use Streamlit interface.
 
 ---
-[![Watch the video]()](https://www.youtube.com/watch?v=rk64nUGg4-g)
 
 [Watch our demo on YouTube](https://www.youtube.com/watch?v=rk64nUGg4-g)
 
