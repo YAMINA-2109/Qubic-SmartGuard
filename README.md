@@ -1,5 +1,18 @@
-# 🗳️ Qubic Voting DApp - Enterprise Smart Contract Solution
+# 🗳️ Qubic Voting DApp - Enterprise Smart Contract Solut### 🔧 **Enhanced CLI Commands**
 
+```bash
+# REAL QUBIC DEV KIT EXECUTION COMMANDS (Actual Blockchain Transactions)
+qubic-cli -realcontractdeploy --bytecode <FILE> --privatekey <KEY> --network <NETWORK>
+qubic-cli -realcontractcall --contract <ADDR> --function <FUNC> --privatekey <KEY> --network <NET> [--args <ARGS>]
+qubic-cli -realvotingcreate --contract <ADDR> --title <TITLE> --description <DESC> --duration <SEC> --privatekey <KEY> --network <NET>
+qubic-cli -realvotingcast --contract <ADDR> --proposal <ID> --userid <USER> --choice <1-3> --privatekey <KEY> --network <NET> [--comment <TEXT>]
+qubic-cli -realvotingresults --contract <ADDR> --proposal <ID> --network <NET>
+qubic-cli -realbalance --address <ADDR> --network <NET>
+qubic-cli -realtransfer --to <ADDR> --amount <AMT> --privatekey <KEY> --network <NET>
+
+# Traditional Contract Development Workflow (Simulation/Compilation)
+qubic-cli -contractcompile <SOURCE> <OUTPUT>     # Compile contract
+qubic-cli -contractvalidate <BYTECODE>           # Validate bytecode
 A production-ready decentralized voting application built on the Qubic blockchain platform with complete CLI integration and professional-grade features. This DApp enables secure, transparent, and immutable voting processes using advanced smart contracts with enterprise-level security and scalability.
 
 ## 🌟 Project Overview
@@ -42,6 +55,18 @@ This project **significantly exceeds** typical smart contract implementations by
 - **Function Calls**: Execute contract functions with parameter validation
 - **Result Querying**: Retrieve voting results and contract state
 - **Mutual Exclusivity**: Robust argument parsing with `--args`/`--params` validation
+
+### ⚡ **REAL QUBIC DEV KIT EXECUTION** 
+**🎯 This addresses the MISSING functionality in Qubic-SmartGuard!**
+
+- **🌐 Actual Network Transactions**: Real deployment and execution on Qubic blockchain
+- **🔒 Cryptographic Signing**: Genuine transaction signing with private keys  
+- **📡 Network Connectivity**: Direct communication with Qubic testnet/mainnet nodes
+- **✅ Transaction Confirmation**: Wait for actual blockchain confirmation
+- **💾 State Persistence**: Real contract state changes on the blockchain
+- **🔄 Live Data Queries**: Retrieve actual network data, not placeholders
+- **🐍 Python Integration**: Ready for Streamlit/SmartGuard integration
+- **🔗 C Interface**: Cross-language compatibility for any application
 
 ### 🔧 **Enhanced CLI Commands**
 ```bash
@@ -238,6 +263,75 @@ cd qubic-cli\build\Release
 - **Voter Demographics**: Participation rate and voter engagement metrics
 - **Proposal Analytics**: Success rates and voting patterns
 - **Historical Data**: Complete voting history and trends
+
+## 🔗 SmartGuard Integration
+
+This project provides **real Qubic Dev Kit execution** for the [Qubic SmartGuard](https://github.com/YAMINA-2109/Qubic-SmartGuard) audit platform, replacing their static simulation with actual contract compilation, deployment, and execution.
+
+### 🎯 What This Solves
+
+**SmartGuard's Current Limitation:**
+- Step 8 "Qubic Dev Kit Execution" is static simulation only
+- No actual contract compilation or deployment
+- Limited development and audit value
+
+**Our Solution:**
+- ✅ **Real contract compilation** using qubic-cli
+- ✅ **Live testnet deployment** to actual Qubic nodes
+- ✅ **Real function calls** and contract interaction
+- ✅ **Complete error diagnostics** and debugging support
+
+### 🚀 Integration Benefits
+
+| Feature | SmartGuard Static | With Our Integration |
+|---------|------------------|---------------------|
+| Contract compilation | ❌ Simulated | ✅ Real qubic-cli compilation |
+| Testnet deployment | ❌ Fake logs | ✅ Live Qubic node deployment |
+| Function testing | ❌ Hardcoded | ✅ Actual contract calls |
+| Error detection | ❌ Limited | ✅ Comprehensive diagnostics |
+| Development value | ⚠️ Basic | ✅ Complete workflow |
+| Audit confidence | ⚠️ Limited | ✅ Verified deployment |
+
+### 📋 Quick Integration
+
+1. **Copy integration files** to SmartGuard project:
+   ```bash
+   cp smartguard_integration.py /path/to/smartguard/
+   cp -r qubic-cli/ /path/to/smartguard/
+   cp testnet.conf /path/to/smartguard/
+   ```
+
+2. **Replace static function** in `src/langgraphagenticai/nodes/qubicdocs_nodes.py`:
+   ```python
+   def compile_and_run_qubic(state: SmartContractState) -> SmartContractState:
+       try:
+           from smartguard_integration import smartguard_compile_and_run_qubic
+           return smartguard_compile_and_run_qubic(state)
+       except ImportError:
+           # Enhanced fallback with integration instructions
+           # ... (see SMARTGUARD_INTEGRATION_GUIDE.md)
+   ```
+
+3. **Test the integration**:
+   ```bash
+   python smartguard_integration_demo.py
+   streamlit run app.py  # In SmartGuard project
+   ```
+
+### 📖 Complete Integration Guide
+
+See **[SMARTGUARD_INTEGRATION_GUIDE.md](SMARTGUARD_INTEGRATION_GUIDE.md)** for:
+- Detailed integration steps
+- Code examples and patches
+- Configuration instructions
+- Troubleshooting guide
+- Verification checklist
+
+### 🎯 Result
+
+**SmartGuard becomes the only audit tool with real Qubic execution capability!**
+
+This transforms SmartGuard from a static analysis tool into a complete development and audit platform for the Qubic ecosystem.
 
 ## 🧪 Testing & Validation
 
