@@ -5,6 +5,8 @@ It performs static analysis, semantic validation, commenting, security auditing,
 
 ---
 
+[Watch our demo on YouTube](https://www.youtube.com/watch?v=rk64nUGg4-g)
+
 ## 🚀 Key Features
 
 ✅ Upload and analyze C++ smart contracts (QPI)  
