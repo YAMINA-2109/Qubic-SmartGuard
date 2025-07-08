@@ -1,4 +1,4 @@
-# 🧠 Qubic SmartGuard
+#🧠 Qubic SmartGuard
 
 Qubic SmartGuard is an AI-powered assistant for auditing and documenting Qubic Smart Contracts written in C++.  
 It performs static analysis, semantic validation, commenting, security auditing, functional specification generation, test planning, simulation, and final reporting all in an easy-to-use Streamlit interface.
@@ -203,8 +203,10 @@ Improves code readability with inline comments and docstrings.
 * 🔜 RPC-based live testnet deployment
 * 🔜 Full end-to-end Qubic Dev Kit integration
 
-------------------------------------------------------------------------------------------
-# 🗳️ Qubic Voting DApp - Enterprise Smart Contract Solut### 🔧 **Enhanced CLI Commands**
+
+---
+--- 
+#🗳️ Qubic Voting DApp - Enterprise Smart Contract Solut### 🔧 **Enhanced CLI Commands**
 
 ```bash
 # REAL QUBIC DEV KIT EXECUTION COMMANDS (Actual Blockchain Transactions)
