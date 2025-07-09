@@ -77,7 +77,7 @@ This tool is designed to help both **developers** and **auditors** save time whi
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/qubic-smartguard.git
+git clone https://github.com/YAMINA-2109/Qubic-SmartGuard.git
 cd qubic-smartguard
 ````
 (Optional) Create and activate a virtual environment:
