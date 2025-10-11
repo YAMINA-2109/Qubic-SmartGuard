@@ -13,14 +13,39 @@ venv/
 env/
 
 # IDE / Editor
-.vscode/
+.vscode/settings.json
+.vscode/c_cpp_properties.json
 .idea/
 
 # OS
 .DS_Store
+Thumbs.db
 
 # Secrets
 .env
+*.key
+*.pem
 
 # Logs
 *.log
+logs/
+
+# Docker
+.docker/
+docker-data/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+
+# Node modules (if any)
+node_modules/
+
+# Backup files
+*.bak
+*.backup

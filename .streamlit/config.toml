@@ -1,0 +1,31 @@
+[server]
+headless = true
+enableCORS = true
+enableXsrfProtection = true
+enableWebsocketCompression = false
+allowRunOnSave = true
+address = "0.0.0.0"
+baseUrlPath = ""
+port = 8501
+maxUploadSize = 200
+maxMessageSize = 200
+
+[browser]
+gatherUsageStats = false
+serverAddress = "0.0.0.0"
+serverPort = 8501
+showErrorDetails = false
+
+[theme]
+base = "dark"
+primaryColor = "#0ea5e9"
+backgroundColor = "#0f172a"
+secondaryBackgroundColor = "#1e293b"
+textColor = "#f8fafc"
+
+[logger]
+level = "info"
+
+[global]
+showWarningOnDirectExecution = false
+suppressDeprecationWarnings = true

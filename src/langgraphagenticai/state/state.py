@@ -1,6 +1,8 @@
-from pydantic import BaseModel
+from dataclasses import dataclass
+from typing import Optional
 
-class SmartContractState(BaseModel):
+@dataclass
+class SmartContractState:
     """
     The shared state object for the LangGraph workflow.
     Holds all intermediate and final results for the Qubic SmartGuard pipeline.

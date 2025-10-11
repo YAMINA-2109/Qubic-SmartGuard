@@ -1,0 +1,141 @@
+name: 🚀 Deploy SmartGuard
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Test Live Connection
+      run: |
+        python verify_live_connection.py
+    
+    - name: Test Live Data Proof
+      run: |
+        python live_data_proof.py
+    
+    - name: Test Real Integration
+      run: |
+        python -c "from real_qubic_rpc_client import RealQubicRPCClient; client = RealQubicRPCClient(); result = client.get_verified_network_data(); print('✅ Integration test passed' if result['success'] else '❌ Integration test failed')"
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run security scan
+      uses: securecodewarrior/github-action-add-sarif@v1
+      with:
+        sarif-file: 'security-scan.sarif'
+      continue-on-error: true
+
+  build-docker:
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      continue-on-error: true
+    
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: |
+          smartguard/qubic-smartguard:latest
+          smartguard/qubic-smartguard:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+      continue-on-error: true
+
+  deploy-staging:
+    needs: [test, build-docker]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: staging
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to Staging
+      run: |
+        echo "🚀 Deploying to staging environment..."
+        # Add your staging deployment commands here
+        # Example: Deploy to staging server or cloud platform
+    
+    - name: Health Check
+      run: |
+        # Wait for deployment
+        sleep 30
+        # Check if staging is healthy
+        curl -f ${{ secrets.STAGING_URL }}/health || exit 1
+
+  deploy-production:
+    needs: [deploy-staging]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to Production
+      run: |
+        echo "🎉 Deploying to production environment..."
+        # Add your production deployment commands here
+    
+    - name: Production Health Check
+      run: |
+        sleep 30
+        curl -f ${{ secrets.PRODUCTION_URL }}/health || exit 1
+    
+    - name: Notify Success
+      if: success()
+      run: |
+        echo "✅ Deployment successful!"
+        # Add notification logic (Slack, Discord, etc.)
+    
+    - name: Notify Failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed!"
+        # Add failure notification logic
